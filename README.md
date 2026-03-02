@@ -25,31 +25,34 @@ It also includes tools for collaborative design (**brainstorm**), decision journ
 
 ## Installation
 
-### One-line install (recommended)
+### Option 1 — `npx skills` (easiest, no git required)
 
-**Workspace skill** — available only in the current project:
+Uses the [skills CLI](https://skills.sh) from the AgentSkills ecosystem:
+
+```bash
+npx skills add FavioVazquez/agentic-learn
+```
+
+This installs the skill into the current workspace. The skill will appear on [skills.sh/FavioVazquez/agentic-learn](https://skills.sh/FavioVazquez/agentic-learn) once it gets its first installs.
+
+### Option 2 — `curl` one-liner
+
+**Workspace skill** (current project only):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash
 ```
 
-**Global skill** — available in all your projects:
+**Global skill** (all projects):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --global
-```
-
-**Update** an existing installation (re-run the same command, or):
-```bash
-curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash
 ```
 
 **Uninstall:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --uninstall
-# or for global:
-curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --uninstall --global
 ```
 
-### Manual install
+### Option 3 — `git clone` (manual)
 
 ```bash
 # Workspace
