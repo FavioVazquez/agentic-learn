@@ -25,19 +25,38 @@ It also includes tools for collaborative design (**brainstorm**), decision journ
 
 ## Installation
 
-### Windsurf — workspace skill (project-specific)
+### One-line install (recommended)
 
+**Workspace skill** — available only in the current project:
 ```bash
-# From your project root
-mkdir -p .windsurf/skills
-cp -r path/to/agentic-learning .windsurf/skills/
+curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash
 ```
 
-### Windsurf — global skill (available in all projects)
+**Global skill** — available in all your projects:
+```bash
+curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --global
+```
+
+**Update** an existing installation (re-run the same command, or):
+```bash
+curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash
+```
+
+**Uninstall:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --uninstall
+# or for global:
+curl -fsSL https://raw.githubusercontent.com/FavioVazquez/agentic-learn/main/install.sh | bash -s -- --uninstall --global
+```
+
+### Manual install
 
 ```bash
-mkdir -p ~/.codeium/windsurf/skills
-cp -r path/to/agentic-learning ~/.codeium/windsurf/skills/
+# Workspace
+git clone --depth 1 https://github.com/FavioVazquez/agentic-learn .windsurf/skills/agentic-learning
+
+# Global
+git clone --depth 1 https://github.com/FavioVazquez/agentic-learn ~/.codeium/windsurf/skills/agentic-learning
 ```
 
 ### Other AgentSkills-compatible agents
