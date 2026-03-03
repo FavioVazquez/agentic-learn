@@ -127,7 +127,7 @@ These files are yours — commit them, use them as documentation, or review them
 
 ## The science
 
-Learning requires **productive struggle** — the mental effort that builds real understanding. Four techniques are proven to work:
+Learning requires **productive struggle** — the mental effort that builds real understanding. Nine techniques are proven to work:
 
 | Technique | What it means | Action that uses it |
 |-----------|--------------|-------------------|
@@ -138,8 +138,10 @@ Learning requires **productive struggle** — the mental effort that builds real
 | **Interleaving** | Mixing topics beats studying one topic to exhaustion | `interleave` |
 | **Cognitive load** | Working memory is limited — decompose before you explain | `cognitive-load` |
 | **Metacognition** | Awareness of *how* you're learning, not just *what* | `reflect`, `learn` |
+| **Oracy** | Articulating ideas in your own words surfaces gaps retrieval alone doesn't | `explain-first` |
+| **Formative feedback** | Feedback tied to process and goal, not just correct/incorrect | `learn`, `quiz`, `struggle` |
 
-See [references/learning-science.md](references/learning-science.md) for all 7 techniques and primary sources, including *Inadequate* by Priya Lakhani (2021).
+See [references/learning-science.md](references/learning-science.md) for all 9 techniques and primary sources, including *Inadequate* by Priya Lakhani (2021), Hattie & Timperley (2007), and Dweck (2006).
 
 ---
 

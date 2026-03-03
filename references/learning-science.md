@@ -122,6 +122,49 @@ This is called the **illusion of competence**: we mistake the ease of *consuming
 
 ---
 
+## Technique 8: Oracy
+
+**What it is:** Oracy is the ability to articulate ideas clearly and precisely in spoken or written language. It is not merely a communication skill — it is a metacognitive diagnostic tool. When a learner attempts to explain something in their own words, they surface in real time exactly what they understand versus what they merely recognise.
+
+**The research:** Mannion & McAllister's Learning Skills curriculum embedded oracy explicitly alongside metacognition and self-regulation as a triad of skills. The reason oracy belongs in that triad: you cannot self-regulate your learning if you cannot articulate where your understanding breaks down. Lakhani notes that schools doing the best pastoral and academic work integrate "evaluation, reasoning, public speaking, and communication" into subject delivery — not as separate modules but as the *medium* through which knowledge is built.
+
+**The mechanism:** The Protégé Effect — explaining something to another person (or to an agent) forces more complete and accurate encoding than reading or listening alone. When you discover mid-explanation that you can't finish a sentence, that is not failure; that is the system working. The gap you found is the thing that needs to be learned.
+
+**The key distinction from retrieval:** Retrieval asks "can you recall this?". Oracy asks "can you express this clearly enough that someone who doesn't know it would understand it?". The second bar is higher. Passing the retrieval test does not guarantee passing the oracy test.
+
+**How the agent applies it:**
+- In `explain-first`: the core mechanic — user explains before agent comments; agent pushes for precision when explanation is vague
+- In `learn`: after the explanation phase, the generation prompt can ask the user to "explain this line to a colleague" rather than just write code
+- If the user gives a vague explanation anywhere, ask one precision-pushing follow-up: "You said it 'handles it' — can you say exactly what it does to handle it?"
+
+---
+
+## Technique 9: Formative Feedback
+
+**What it is:** Feedback that is timely, specific, and tied to a learning goal — as opposed to summative feedback (a grade after the fact) or binary feedback ("correct/incorrect" with no further information).
+
+**The research:** Hattie & Timperley (2007) conducted a meta-analysis of educational interventions and found that feedback is one of the most powerful influences on achievement — but only when it operates at the right level. They identified four feedback levels:
+1. **Task level** — "this answer is wrong" (least useful)
+2. **Process level** — "the approach you used doesn't work here because..." (most useful for learning)
+3. **Self-regulation level** — "what strategy could you use to check this yourself?" (builds independence)
+4. **Self level** — "you're so smart" (can be actively harmful; see growth mindset)
+
+The vast majority of AI feedback defaults to task level (correct/incorrect) or self level ("great job!"). Both are the least effective.
+
+**Lakhani's framing:** Formative assessment is ongoing and actionable — it changes what the learner does next. Summative assessment is retrospective and final. The distinction matters because AI, left to its natural behaviour, produces summative-style responses to every answer: a verdict, not a guide.
+
+**The growth mindset caveat (Dweck, 2006):** Generic praise of ability — "you're so smart", "you're a natural" — actively undermines motivation and resilience. It creates a fixed mindset: learners attribute success to inherent ability, and therefore interpret failure as evidence of lack of ability. Praise of *process* — "you found the right strategy", "that was sharp reasoning", "you identified the key mechanism" — creates a growth mindset: failure is just a strategy that didn't work yet. This distinction applies to every feedback interaction in this skill.
+
+**How the agent applies it:**
+- In `learn`: step 4 requires formative, anchored feedback on the user's initial answer
+- In `quiz`: step 4 requires process-level feedback after every question
+- In `struggle`: hints and post-reveal comments should praise the specific reasoning the user applied, not the outcome
+- In `reflect`: the gap analysis is formative by design — it asks what to do next, not what the score was
+- **Never use**: "correct!", "great job!", "you're really good at this" as standalone responses
+- **Always anchor to**: what specifically the user understood, why it matters, what to try if they were wrong
+
+---
+
 ## The neurological basis
 
 Sustained mental effort is positively correlated with brain growth. A neuroscience study of London taxi drivers (who must memorize 26,000 streets to pass "The Knowledge" exam) found enlarged hippocampal regions compared to non-taxi drivers. The structural changes correlated with years of experience — the brain literally grows in response to the kind of effortful spatial memory work required by the job.
@@ -137,7 +180,8 @@ Sleep plays a critical role in memory consolidation. Neuroscience professor Matt
 - Roediger, H.L. & Karpicke, J.D. (2006). "Test-Enhanced Learning." *Psychological Science*, 17(3), 249–255.
 - Ebbinghaus, H. (1885). *Über das Gedächtnis*. (Memory: A Contribution to Experimental Psychology.)
 - Maguire, E.A. et al. (2000). "Navigation-related structural change in the hippocampi of taxi drivers." *PNAS*, 97(8), 4398–4403.
-- Hattie, J. & Timperley, H. (2007). "The Power of Feedback." *Review of Educational Research*, 77(1), 81–112.
+- Dweck, C.S. (2006). *Mindset: The New Psychology of Success.* Random House. — Growth mindset only produces results when praise is tied to process and strategy, not ability. Generic ability praise can actively undermine resilience.
+- Hattie, J. & Timperley, H. (2007). "The Power of Feedback." *Review of Educational Research*, 77(1), 81–112. — Four levels of feedback; process-level feedback is most effective for learning; self-level feedback (praise of ability) is least effective.
 - Brown, P.C., Roediger, H.L., & McDaniel, M.A. (2014). *Make It Stick: The Science of Successful Learning.* Harvard University Press.
 - Sweller, J. (1988). "Cognitive Load During Problem Solving." *Cognitive Science*, 12(2), 257–285.
 - Rohrer, D. & Taylor, K. (2007). "The shuffling of mathematics problems improves learning." *Instructional Science*, 35(6), 481–498.

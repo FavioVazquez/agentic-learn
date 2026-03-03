@@ -7,6 +7,27 @@ Versioning follows [Semantic Versioning](https://semver.org/): `MAJOR.MINOR` —
 
 ---
 
+## [1.3] — 2026-03-03
+
+### Added
+- `references/learning-science.md`: Technique 8 (Oracy) and Technique 9 (Formative Feedback) — fully grounded in Mannion & McAllister (oracy as metacognitive diagnostic), Hattie & Timperley four feedback levels, and Dweck's growth mindset caveat. Both techniques include "how the agent applies it" sections mapped to specific actions.
+- `references/learning-science.md`: Dweck (2006) added to primary sources with annotation. Hattie & Timperley citation expanded with four feedback levels annotation.
+
+### Changed
+- `SKILL.md — learn`: step 4 rewritten with explicit formative feedback instructions (wrong/right/partial branches, each anchored to learning goal). Replaces generic "give genuine feedback."
+- `SKILL.md — quiz`: step 4 rewritten with formative feedback at the concept level; feedback must connect back to why the concept matters in context.
+- `SKILL.md — space`: action now reads existing `docs/revisit.md` before scheduling. Cross-references past entries: skips duplicates, reschedules forward if a concept was shaky again. Closes the personalised learning path gap from Lakhani's CENTURY model.
+- `SKILL.md — explain-first`: added oracy framing paragraph ("What this is") explaining the Protégé Effect and why articulating understanding is a metacognitive diagnostic. Added step 6: precision follow-up when explanation is vague.
+- `SKILL.md — global principles`: two new principles added — "Praise effort and strategy, never intelligence" (Dweck caveat) and "Feedback must be formative, not binary" (Hattie process-level feedback).
+- `README.md`: science table updated to 9 techniques (added Oracy, Formative feedback rows). Sources line updated.
+- `TESTING.md — learn`: formative feedback checks added (wrong/right/partial branches, no bare "great job!" check).
+- `TESTING.md — quiz`: formative feedback checks added per question.
+- `TESTING.md — space`: second-run trigger added with deduplication and reschedule checks.
+- `TESTING.md — explain-first`: oracy precision follow-up check added.
+- `TESTING.md — regression checklist`: four new items for formative feedback, oracy scaffold, and space deduplication.
+
+---
+
 ## [1.2] — 2026-03-03
 
 ### Added

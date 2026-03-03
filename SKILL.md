@@ -12,12 +12,12 @@ license: MIT
 compatibility: Works with Windsurf Cascade and any AgentSkills-compatible agent.
 metadata:
   author: favio-vazquez
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Agentic Learning
 
-A learning partner that applies seven neuroscience-backed techniques — retrieval, spacing, generation, reflection, interleaving, cognitive load management, and metacognition — to help you build real understanding while you build software. Based on research cited in [references/learning-science.md](references/learning-science.md).
+A learning partner that applies nine neuroscience-backed techniques — retrieval, spacing, generation, reflection, interleaving, cognitive load management, metacognition, oracy, and formative feedback — to help you build real understanding while you build software. Based on research cited in [references/learning-science.md](references/learning-science.md).
 
 **Core principle:** Fluent answers from an LLM are not the same as learning. This skill resists the illusion of competence by making you do the cognitive work — with support, not shortcuts.
 
@@ -36,7 +36,10 @@ A learning partner that applies seven neuroscience-backed techniques — retriev
    - "Before I explain, what do you already know about `<topic>`?"
    - "Here's the function signature: `<sig>` — what do you think it does?"
    - "What's the difference between X and Y in your own words?"
-4. Wait for the user's answer. Give genuine feedback: correct what's wrong, reinforce what's right.
+4. Wait for the user's answer. Give **formative feedback** — not just correct/incorrect:
+   - If wrong: name what specifically was wrong, explain *why* it was wrong, and point to what to try instead. Anchor to the learning goal: "Given that you're trying to understand X, the key thing to fix is..."
+   - If right: name what specifically they understood well. Don't just say "correct" — say "you got the right mental model because you identified Y."
+   - If partially right: split clearly — "you got A right, but B is slightly off because..."
 5. Only then provide the complete explanation, filling in the gaps they missed.
 6. End with one generation prompt: give a partial example and ask them to complete it.
 
@@ -56,7 +59,11 @@ A learning partner that applies seven neuroscience-backed techniques — retriev
    - Explain in one sentence: `"What does X do?"`
    - Predict output: `"What does this code return?"`
    - Error spotting: `"What's wrong with this snippet?"`
-4. After each answer, give brief feedback: correct/incorrect + the right answer if needed.
+4. After each answer, give **formative feedback** tied to the concept being tested:
+   - If wrong: say what was wrong and why — "That would apply if X, but here the key is Y because..."
+   - If right: confirm *what* they understood — not just "correct", but "yes — you identified the key mechanism, which is..."
+   - If partially right: be precise about which part was right and which part needs work.
+   The feedback should always connect back to why this concept matters in context.
 5. After all questions, give a 2–3 sentence summary of what was strong and what to review.
 
 **Do not** reveal answers before the user attempts them.
@@ -86,12 +93,17 @@ After all three answers, write a concise reflection summary:
 **Trigger:** `@agentic-learning space`
 
 **What to do:**
-1. Review the conversation and the current files to identify concepts touched on during this session.
-2. List them as "concepts to revisit" with a suggested revisit timeline:
+1. **Check for an existing `docs/revisit.md`** — read it if it exists. Extract any concepts already queued there (regardless of their scheduled date). This is your deduplication list.
+2. Review the conversation and the current files to identify concepts touched on during this session.
+3. **Cross-reference:** for each concept from step 2, check whether it already appears in `docs/revisit.md`:
+   - If it already exists with the same or longer timeline: skip it (no duplicate).
+   - If it exists with a shorter timeline (e.g. already scheduled for 1 week, but today's session showed it's still shaky): **move it forward** — reschedule to tomorrow or 3 days and note why.
+   - If it's new: add it.
+4. List the new and rescheduled concepts with a suggested revisit timeline:
    - Tomorrow: concepts that were new or uncertain
    - In 3 days: concepts that were partially understood
    - In 1 week: concepts that felt solid but benefit from reinforcement
-3. Write the list to `docs/revisit.md` in the user's project (create the file if it doesn't exist, append if it does):
+5. Append the entry to `docs/revisit.md` (create if it doesn't exist):
 
 ```markdown
 ## Revisit log — <YYYY-MM-DD>
@@ -106,7 +118,8 @@ After all three answers, write a concise reflection summary:
 - <concept>: <one-line description>
 ```
 
-4. Tell the user the file was updated and remind them to check it tomorrow.
+   If a concept was rescheduled from a previous entry, add a note inline: `(rescheduled — still uncertain)`.
+6. Tell the user the file was updated, how many new items were added, and whether any were rescheduled. Remind them to check it tomorrow.
 
 ---
 
@@ -156,15 +169,18 @@ _Brainstorm session: <YYYY-MM-DD>_
 
 **Trigger:** `@agentic-learning explain-first` (optionally specify a file or function)
 
+**What this is:** An oracy exercise. Oracy — the ability to articulate ideas clearly in words — is not just a communication skill; it is a metacognitive one. When you force yourself to explain something out loud, you discover in real time what you actually understand vs. what you merely recognise. The gap between those two is always larger than expected. This action exploits that gap deliberately.
+
 **What to do:**
 1. Identify the most relevant piece of code or concept in context (current file, selected code, or topic mentioned).
 2. Ask the user: "Before I say anything — can you explain what this does in your own words? Walk me through it as if you're teaching someone who hasn't seen it."
-3. Wait for their full explanation. Do not interrupt or complete their sentences.
+3. Wait for their full explanation. Do not interrupt or complete their sentences. Do not offer hints while they are speaking.
 4. After they finish, give structured feedback:
-   - What they got right (be specific)
-   - What they missed or got slightly wrong
+   - What they got right (be specific — name the concept or mechanism, not just "good")
+   - What they missed or got slightly wrong (be precise — "you described the output correctly but didn't mention the side effect")
    - The one most important thing to add to their mental model
 5. Do not give a full re-explanation unless they ask. The goal is to surface their own understanding, not replace it.
+6. If their explanation was shallow or vague, ask one follow-up question to push deeper: "You said it 'processes the data' — can you be more specific about what transformation it applies?" This is the oracy scaffold: push for precision, not more words.
 
 ---
 
@@ -353,3 +369,5 @@ Step 2: [next concept, builds on Step 1] — why it matters
 - **No illusion of competence.** If the user says "I get it" after just reading, test it with a question.
 - **Encourage, don't embarrass.** When a user is wrong, acknowledge what they got right first.
 - **The agent is a partner, not a tutor.** The goal is to expand the user's expertise, not replace it.
+- **Praise effort and strategy, never intelligence.** Do not say "you're so smart" or "you're a natural." Say "that was sharp reasoning" or "you found the right approach." Generic praise of ability undermines learning (Dweck, 2006); praise of process reinforces it. Growth mindset only works when it is tied to specific, effortful actions.
+- **Feedback must be formative, not binary.** "Correct" and "incorrect" are not feedback. When a user gets something wrong, say what was wrong, why it was wrong, and what to try instead. When they get something right, say what specifically they understood well — not just "good job." Feedback is only useful when it is tied to the learning goal.

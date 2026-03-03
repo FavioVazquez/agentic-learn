@@ -527,27 +527,251 @@ Agent: Reading the references/ directory specifically...
 
 ---
 
-## Chaining actions in a session
+## `interleave` — Mixed retrieval across topics
 
-These actions work well together. A typical onboarding + deep-work session might look like:
+**Scenario:** You've been learning Python generators, async/await, and decorators across separate sessions. Instead of going deep on one again, you want a session that mixes all three to force real discrimination.
 
 ```
-# Start by understanding the project (especially useful on a new repo)
+You: @agentic-learning interleave
+```
+
+```
+Agent: I can see you've been working across generators, async/await, and decorators
+       recently. I'll mix questions from all three — don't expect them to stay in
+       one topic.
+
+       Question 1 of 5:
+
+       What does this return, and why?
+
+       def gen():
+           yield 1
+           yield 2
+           yield 3
+
+       list(gen())
+```
+
+```
+You: [1, 2, 3] — because list() exhausts the generator by calling next() repeatedly
+     until StopIteration.
+```
+
+```
+Agent: Exactly right. The key detail you named — StopIteration — is what list()
+       is actually catching internally. That's a non-obvious thing most people miss.
+
+       Question 2 of 5:
+
+       Different topic. Complete this sentence:
+       "The difference between `async def` and a regular `def` is that async def
+       returns a ________, which only runs when ________."
+```
+
+```
+You: Returns a coroutine, which only runs when awaited or passed to an event loop.
+```
+
+```
+Agent: Correct on both. Worth adding: the coroutine object is created immediately
+       when you call the function — it just doesn't execute until driven.
+
+       Question 3 of 5:
+
+       Back to generators. What's the difference between these two:
+
+       # A
+       data = [x * 2 for x in range(1000000)]
+
+       # B
+       data = (x * 2 for x in range(1000000))
+```
+
+```
+You: A builds the whole list in memory immediately. B is a generator expression —
+     it produces values lazily, one at a time, so memory usage stays flat.
+```
+
+```
+Agent: Right. The shape is identical, the brackets are the only difference —
+       and the memory behaviour is completely different. That's worth remembering
+       as a gotcha in code review.
+
+       Question 4 of 5:
+
+       New topic. What does a decorator actually do at the Python level?
+       Explain it mechanically, not conceptually.
+```
+
+```
+You: It wraps a function — takes the original function as input, returns a new
+     function that usually calls the original inside it. The @ syntax is just
+     shorthand for: my_func = decorator(my_func)
+```
+
+```
+Agent: That's the cleanest possible explanation. The desugaring (@syntax = 
+       reassignment) is exactly what people miss when they first see decorators.
+
+       Question 5 of 5 — mixing two topics:
+
+       Could you write a decorator that measures how long a coroutine takes to run?
+       You don't need to write it perfectly — just sketch the structure.
+```
+
+```
+You: import time, functools, asyncio
+
+     def timer(func):
+         @functools.wraps(func)
+         async def wrapper(*args, **kwargs):
+             start = time.time()
+             result = await func(*args, **kwargs)
+             print(f"Took {time.time() - start:.2f}s")
+             return result
+         return wrapper
+```
+
+```
+Agent: That's correct and complete. Two things worth noting:
+       1. The wrapper must be `async def` because it awaits the original function
+       2. functools.wraps preserves the original function's metadata — easy to forget
+
+       ── Session summary ──────────────────────────────────────────
+
+       Solid across the board. Strongest: generators (mechanics and memory model)
+       and the decorator desugaring.
+
+       Worth revisiting: the event loop / coroutine lifecycle — you got the surface
+       right but the "driven by the event loop" part was thin.
+
+       Suggested follow-up:
+       @agentic-learning struggle write an async event loop from scratch (simplified)
+```
+
+---
+
+## `cognitive-load` — Decompose an overwhelming concept
+
+**Scenario:** You're trying to learn Kubernetes and everything feels connected to everything else — you don't know where to start.
+
+```
+You: @agentic-learning cognitive-load Kubernetes
+```
+
+```
+Agent: Before I break it down — what specifically feels overwhelming?
+
+       Is it:
+       A — Too many new terms (pod, node, cluster, deployment, service...)
+       B — Too many steps to get something running
+       C — The pieces don't connect — you can read the docs but can't
+           build a mental model of how it all fits
+```
+
+```
+You: Honestly C mostly. I've read the docs but I can't picture how a request
+     actually gets from the internet to my container.
+```
+
+```
+Agent: That's the right question to start with — request flow is the spine
+       everything else hangs on.
+
+       Here's the dependency map — what needs to exist before each thing works:
+
+       Internet → LoadBalancer Service
+                → Ingress Controller (optional but common)
+                → ClusterIP Service  
+                → Pod (your container)
+                → Node (the machine the pod runs on)
+                → Cluster (the set of nodes)
+
+       The key insight: a Pod is the smallest unit, but you almost never
+       talk to it directly. Services are stable addresses that route to Pods,
+       because Pods are ephemeral — they die and get replaced.
+
+       Here's a 5-step learning plan, each piece small enough to hold in
+       working memory on its own:
+
+       Step 1: Pod — what it is and how to run one manually
+               Why it matters: everything else is built on top of this
+
+       Step 2: Service (ClusterIP) — how to give a Pod a stable address
+               Why it matters: Pods die; Services don't
+
+       Step 3: Deployment — how Kubernetes manages Pod lifecycle for you
+               Why it matters: you never create Pods directly in production
+
+       Step 4: Ingress — how external HTTP traffic gets routed in
+               Why it matters: this is what connects your app to the internet
+
+       Step 5: Namespace — how to isolate workloads in one cluster
+               Why it matters: required for any multi-team setup
+
+       Does this order make sense, or is there something you think
+       belongs earlier?
+```
+
+```
+You: This is really helpful. Can we start with Step 1?
+```
+
+```
+Agent: @agentic-learning learn Kubernetes Pods — starting now.
+
+       Before I explain anything: what do you think a Pod is?
+       Even a rough guess counts.
+```
+
+---
+
+## Chaining actions in a session
+
+These actions work well together. A few typical session patterns:
+
+**Onboarding a new repo:**
+```
+# Understand what you're working with before touching anything
 @agentic-learning explain
 
-# Design before building
+# Design the first change before coding it
 @agentic-learning brainstorm caching strategy for the API
 
-# Record the key decision
+# Record the key architectural decision
 @agentic-learning either-or use Redis cache vs in-memory LRU
 
-# Work through an implementation challenge
+# Work through the hardest part with productive struggle
 @agentic-learning struggle implement LRU cache in Python without a library
 
 # Test your understanding of what you built
 @agentic-learning quiz
 
-# Close the session
+# Close the session properly
 @agentic-learning reflect
 @agentic-learning space
+```
+
+**Deep review session (reinforcing past learning):**
+```
+# Mix topics from past sessions — harder but stickier than going deep on one
+@agentic-learning interleave
+
+# Close with spacing reminders so today's review is reinforced over time
+@agentic-learning space
+```
+
+**Tackling something overwhelming:**
+```
+# Break it into working-memory-sized pieces first
+@agentic-learning cognitive-load distributed tracing in microservices
+
+# Then learn the first piece properly
+@agentic-learning learn Step 1 concept from the plan
+
+# Struggle through the implementation
+@agentic-learning struggle implement the first piece
+
+# Reflect on what you understood vs. what you just followed
+@agentic-learning reflect
 ```

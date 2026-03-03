@@ -33,7 +33,12 @@ There is no automated test suite — agent behavior is non-deterministic and con
 
 - [ ] Agent asks what the user already knows **before** explaining anything
 - [ ] Agent waits for the user's answer
-- [ ] After the user answers, agent gives feedback (correct/incorrect), then provides the full explanation
+- [ ] After the user answers, agent gives **formative feedback** — not just "correct" or "incorrect":
+  - [ ] If wrong: names what was wrong, explains *why*, anchors to the learning goal
+  - [ ] If right: names what *specifically* they understood well (e.g. "you identified the key mechanism")
+  - [ ] If partially right: clearly separates what was right from what needs work
+- [ ] Agent does **not** say "great job!" or "you're so smart" as standalone praise
+- [ ] Only after feedback does agent provide the full explanation
 - [ ] Agent ends with a generation exercise (partial code or incomplete sentence for the user to complete)
 - [ ] Agent does **not** give the full explanation before the user has answered
 
@@ -46,6 +51,10 @@ There is no automated test suite — agent behavior is non-deterministic and con
 - [ ] Agent generates 3-5 questions based on the current file/topic
 - [ ] Agent presents questions **one at a time** — waits for each answer before showing the next
 - [ ] Agent does **not** reveal the answer before the user attempts it
+- [ ] After each answer, agent gives **formative feedback** tied to the concept:
+  - [ ] If wrong: explains what was wrong and why — not just "incorrect"
+  - [ ] If right: confirms *what* they understood — not just "correct"
+  - [ ] Feedback connects back to why the concept matters in context
 - [ ] After all questions, agent gives a 2-3 sentence summary of strengths and what to review
 
 ---
@@ -66,12 +75,20 @@ There is no automated test suite — agent behavior is non-deterministic and con
 
 ## `space`
 
-**Trigger:** `@agentic-learning space`
+**Trigger:** `@agentic-learning space` (first time — no existing `docs/revisit.md`)
 
 - [ ] Agent identifies concepts from the current session (not generic/made-up ones)
 - [ ] Agent categorizes them into tomorrow / 3 days / 1 week based on confidence level
-- [ ] Agent writes (or appends) to `docs/revisit.md` in the current project
+- [ ] Agent writes `docs/revisit.md` with a dated entry
 - [ ] Agent confirms the file was written and tells the user where it is
+
+**Trigger:** `@agentic-learning space` (second time — `docs/revisit.md` already exists)
+
+- [ ] Agent **reads the existing file** before generating any new entries
+- [ ] Agent does **not** duplicate concepts already queued in `docs/revisit.md`
+- [ ] If a concept from today's session is already scheduled for a *longer* timeline but was still shaky today, agent **reschedules it forward** (e.g. from 1 week to tomorrow) and notes why
+- [ ] Agent appends a new dated entry rather than overwriting the file
+- [ ] Agent tells the user how many new items were added and whether any were rescheduled
 
 ---
 
@@ -95,8 +112,12 @@ There is no automated test suite — agent behavior is non-deterministic and con
 
 - [ ] Agent identifies the most relevant code in context (current file or selection)
 - [ ] Agent asks the user to explain it **in their own words** before saying anything about the code
-- [ ] Agent waits for the full explanation — does not interrupt
-- [ ] After the user explains, agent gives feedback: what they got right, what they missed, one key addition
+- [ ] Agent waits for the full explanation — does not interrupt or offer hints while the user is explaining
+- [ ] After the user explains, agent gives structured feedback:
+  - [ ] What they got right — names the specific concept or mechanism (not just "good")
+  - [ ] What they missed or got wrong — precise, not vague ("you described the output but not the side effect")
+  - [ ] The one most important thing to add to their mental model
+- [ ] If the explanation was shallow or vague, agent asks **one follow-up precision question** (e.g. "you said it 'processes the data' — what transformation does it apply?") — this is the oracy scaffold
 - [ ] Agent does **not** re-explain the entire thing — only adds what was missing
 
 ---
@@ -153,6 +174,46 @@ There is no automated test suite — agent behavior is non-deterministic and con
 
 ---
 
+## `interleave`
+
+**Trigger:** `@agentic-learning interleave`
+
+- [ ] Agent reviews recent conversation and open files to identify distinct past topics before asking anything
+- [ ] If no past context is available, agent asks "What are two or three topics you've been learning recently?" — does **not** make up topics
+- [ ] Questions are drawn from **at least 2 different topics** — not all from the same domain
+- [ ] Agent presents questions **one at a time** — does not list all questions upfront
+- [ ] Agent does **not** announce which topic the next question is from
+- [ ] After each answer, agent gives brief feedback before the next question
+- [ ] After all questions, agent gives a summary: which topics were solid, which showed gaps, one suggested follow-up action
+
+**Trigger:** `@agentic-learning interleave async/await decorators`
+
+- [ ] Agent uses the two specified topics as the source for questions
+- [ ] Questions still alternate — not all async first, then all decorators
+
+---
+
+## `cognitive-load`
+
+**Trigger:** `@agentic-learning cognitive-load Kubernetes`
+
+- [ ] Agent asks what specifically feels overwhelming — offers 3 categories (too many terms / too many steps / pieces don't connect)
+- [ ] Agent waits for the user's answer before doing anything
+- [ ] Agent classifies the load type correctly and responds with the appropriate strategy:
+  - Too many terms → minimal glossary (3–4 essential terms only)
+  - Too many steps → critical path identification
+  - Pieces don't connect → text-based dependency map
+- [ ] Agent produces a **chunked plan of 3–5 steps**, each explicitly labelled with why it matters
+- [ ] Agent presents the plan and asks "Does this order make sense?" before proceeding
+- [ ] Agent does **NOT** explain all steps at once — presents the plan, then offers to start Step 1
+- [ ] Agent does **NOT** respond to overwhelm with more information — only with decomposition
+
+**Trigger:** `@agentic-learning cognitive-load` (no topic specified)
+
+- [ ] Agent asks what concept or task feels overwhelming before doing anything
+
+---
+
 ## Regression checklist (run after any `SKILL.md` change)
 
 These are the most commonly broken behaviors after edits:
@@ -161,6 +222,12 @@ These are the most commonly broken behaviors after edits:
 - [ ] `struggle`: agent still gives hints in order, not all at once
 - [ ] `brainstorm`: hard gate still holds — no code before approval
 - [ ] `either-or`: outcome field still defaults to `_pending_`
+- [ ] `learn` and `quiz`: feedback is formative — names what was right/wrong and why, anchors to goal
+- [ ] `learn` and `quiz`: no bare "correct!" or "great job!" as standalone responses
+- [ ] `explain-first`: agent asks a precision follow-up if explanation is vague
+- [ ] `space`: reads existing `docs/revisit.md` before scheduling; no duplicate entries
+- [ ] `interleave`: questions are genuinely mixed — agent does not group by topic
+- [ ] `cognitive-load`: agent responds with decomposition, not more explanation
 - [ ] All file-writing actions: files go to the **user's project** `docs/`, not the skill directory
 
 ---
