@@ -159,6 +159,6 @@ MIT — see [LICENSE](LICENSE)
 ---
 
 <div align="center">
-  <p>Built by <a href="https://github.com/FavioVazquez">Favio Vázquez</a> as part of <a href="https://github.com/favio-vazquez/roadtoreality">The Road to Reality</a>, Episode 2.</p>
+  <p>Built by <a href="https://github.com/FavioVazquez">Favio Vázquez</a>.</p>
   <p><em>Mental effort is not a flaw in the process. It is the process.</em></p>
 </div>
