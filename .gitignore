@@ -1,3 +1,8 @@
 .DS_Store
 *.pyc
 __pycache__/
+
+# npx skills install artifacts
+.agents/
+.windsurf/
+skills-lock.json
