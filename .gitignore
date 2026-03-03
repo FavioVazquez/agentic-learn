@@ -7,6 +7,6 @@ __pycache__/
 .windsurf/
 skills-lock.json
 
-# Image generation script (contains API key references)
+# Image generation scripts
 generate_images.py
 .env

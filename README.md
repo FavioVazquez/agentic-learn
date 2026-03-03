@@ -1,6 +1,8 @@
 <div align="center">
-  <img src="assets/logo.png" alt="agentic-learning logo" width="120" />
-  <h1>agentic-learning</h1>
+  <img src="assets/logo.png" alt="agentic-learning logo" width="140" />
+  <br/>
+  <img src="assets/banner.png" alt="agentic-learning banner" width="700" />
+  <br/><br/>
   <p><strong>A learning partner skill for AI coding agents, grounded in neuroscience and philosophy.</strong></p>
 
   <p>
