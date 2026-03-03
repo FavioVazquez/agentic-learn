@@ -49,8 +49,12 @@ Researchers call this the **illusion of competence**: the fluency of reading a w
 | `struggle` | `@agentic-learning struggle <task>` | 3-hint ladder; reveals only when you ask |
 | `either-or` | `@agentic-learning either-or <decision>` | Decision journal; appends to `docs/decisions/` |
 | `explain` | `@agentic-learning explain` | Reads the project; writes comprehension log to `docs/project-knowledge.md` |
+| `interleave` | `@agentic-learning interleave` | Mixed retrieval across multiple topics — the harder, stickier quiz |
+| `cognitive-load` | `@agentic-learning cognitive-load <topic>` | Decomposes an overwhelming concept into working-memory-sized steps |
 
 > **Full walkthroughs with realistic conversations for every action:** [EXAMPLES.md](EXAMPLES.md)
+
+> Based on 7 neuroscience-backed techniques — retrieval, spacing, generation, reflection, interleaving, cognitive load management, and metacognition. See [references/learning-science.md](references/learning-science.md) for primary sources including Roediger & Karpicke (2006), Rohrer & Taylor (2007), Sweller (1988), and Lakhani (2021).
 
 ---
 
@@ -131,8 +135,11 @@ Learning requires **productive struggle** — the mental effort that builds real
 | **Spacing** | Returning to topics over time beats cramming | `space` |
 | **Generation** | Producing an answer (even wrong) builds stronger traces | `learn`, `struggle` |
 | **Reflection** | Structured feedback on goals and gaps improves outcomes | `reflect`, `either-or` |
+| **Interleaving** | Mixing topics beats studying one topic to exhaustion | `interleave` |
+| **Cognitive load** | Working memory is limited — decompose before you explain | `cognitive-load` |
+| **Metacognition** | Awareness of *how* you're learning, not just *what* | `reflect`, `learn` |
 
-See [references/learning-science.md](references/learning-science.md) for primary sources.
+See [references/learning-science.md](references/learning-science.md) for all 7 techniques and primary sources, including *Inadequate* by Priya Lakhani (2021).
 
 ---
 

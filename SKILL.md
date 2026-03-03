@@ -7,17 +7,17 @@ description: >
   practice productive struggle on a hard problem, journal a decision with its
   alternatives and consequences, or schedule concepts to revisit later.
   Invoke with @agentic-learning followed by one of: learn, quiz, reflect, space,
-  brainstorm, explain-first, struggle, either-or, or explain.
+  brainstorm, explain-first, struggle, either-or, explain, interleave, or cognitive-load.
 license: MIT
 compatibility: Works with Windsurf Cascade and any AgentSkills-compatible agent.
 metadata:
   author: favio-vazquez
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Agentic Learning
 
-A learning partner that applies four neuroscience-backed techniques — retrieval, spacing, generation, and reflection — to help you build real understanding while you build software. Based on research cited in [references/learning-science.md](references/learning-science.md).
+A learning partner that applies seven neuroscience-backed techniques — retrieval, spacing, generation, reflection, interleaving, cognitive load management, and metacognition — to help you build real understanding while you build software. Based on research cited in [references/learning-science.md](references/learning-science.md).
 
 **Core principle:** Fluent answers from an LLM are not the same as learning. This skill resists the illusion of competence by making you do the cognitive work — with support, not shortcuts.
 
@@ -291,6 +291,57 @@ _Generated: <YYYY-MM-DD HH:MM>_
 - Do NOT produce a summary longer than the user can absorb in 2 minutes — be ruthlessly selective.
 - The "Non-obvious things" section is the most valuable — prioritize it.
 - If the project is large, explain which parts you focused on and why.
+
+---
+
+### `interleave` — Mixed retrieval across topics
+
+**Trigger:** `@agentic-learning interleave` (optionally: `@agentic-learning interleave <topic-a> <topic-b>`)
+
+**What it does:** Instead of going deep on one topic (blocked practice), pulls concepts from multiple past topics or sessions and mixes them into a single retrieval exercise. This is harder and feels less productive — which is exactly why it works.
+
+See [references/learning-science.md](references/learning-science.md) — Technique 5: Interleaving.
+
+**What to do:**
+1. Review recent conversation, open files, and `docs/revisit.md` (if it exists) to identify 3–5 distinct concepts the user has been working on — ideally from different domains or sessions.
+2. If no past context is available, ask: "What are two or three topics you've been learning or working on recently?"
+3. Construct a mixed set of 4–6 questions that deliberately alternate between the topics — do not group questions by topic.
+4. Present questions **one at a time**, wait for each answer before showing the next.
+5. After each answer, give brief feedback. Do **not** reveal which topic the next question is from.
+6. After all questions, give a summary: which topics felt solid, which showed gaps, and suggest one `@agentic-learning learn` or `@agentic-learning struggle` follow-up.
+
+**Why mix deliberately:** Interleaving forces the brain to select the right strategy for each problem type rather than applying the same pattern repeatedly. This is a *desirable difficulty* — it feels harder but builds stronger, more transferable understanding.
+
+**Never** group questions by topic. The mixing is the mechanism.
+
+---
+
+### `cognitive-load` — Decompose an overwhelming problem
+
+**Trigger:** `@agentic-learning cognitive-load <topic or task>`
+
+**What it does:** When a concept or task feels overwhelming, this action applies cognitive load theory to decompose it into working-memory-sized pieces that can be learned one at a time without overloading the learner.
+
+See [references/learning-science.md](references/learning-science.md) — Technique 6: Cognitive Load Management.
+
+**What to do:**
+1. Ask the user: "What specifically feels overwhelming? Is it that there are too many new terms, too many steps at once, or that the pieces don't connect?"
+2. Wait for their answer. Classify the load type:
+   - **Too many new terms** → build a minimal glossary first; define only the 3–4 terms essential to start
+   - **Too many steps** → identify the critical path; what is the one thing to do first that unlocks everything else?
+   - **Pieces don't connect** → draw a simple dependency map in text (A requires B, B requires C) and find the leaf node to start from
+3. Present a **chunked learning plan** — 3–5 discrete steps, each small enough to hold in working memory:
+
+```
+Step 1: [smallest atomic concept] — why it matters
+Step 2: [next concept, builds on Step 1] — why it matters
+...
+```
+
+4. Offer to start with Step 1 immediately using `learn` or `struggle`.
+5. Do **not** explain all steps at once. Present the plan, then ask: "Does this order make sense, or is there something missing you think comes first?"
+
+**Hard constraint:** Do not try to reduce cognitive load by giving more information. Reducing load means doing less at a time, not explaining more comprehensively.
 
 ---
 

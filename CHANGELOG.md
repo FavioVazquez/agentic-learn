@@ -7,6 +7,17 @@ Versioning follows [Semantic Versioning](https://semver.org/): `MAJOR.MINOR` —
 
 ---
 
+## [1.2] — 2026-03-03
+
+### Added
+- `interleave` action: mixed retrieval across multiple past topics in a single session. Deliberately alternates between domains to prevent pattern-matching shortcuts. Based on interleaving research (Rohrer & Taylor, 2007).
+- `cognitive-load` action: decomposes an overwhelming concept or task into working-memory-sized chunks. Classifies the type of overload (too many terms / too many steps / pieces don't connect) and produces a sequenced learning plan. Based on cognitive load theory (Sweller, 1988).
+- `references/learning-science.md`: three new techniques added — Technique 5 (Interleaving), Technique 6 (Cognitive Load Management), Technique 7 (Metacognition). Neurological basis section expanded with sleep and memory consolidation (Walker, *Why We Sleep*).
+- New primary sources: Sweller (1988), Rohrer & Taylor (2007), Walker (2018), Mannion & McAllister (2020), and Lakhani, P. (2021) *Inadequate* — John Catt Educational.
+- `README.md`: actions table updated (11 actions total), science table expanded to 7 techniques, Lakhani book referenced.
+
+---
+
 ## [1.1] — 2026-03-03
 
 ### Added
