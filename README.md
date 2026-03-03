@@ -132,10 +132,22 @@ Kierkegaard's *Either/Or* explores how every significant choice defines who we a
 
 ---
 
+## Contributing
+
+Contributions are welcome! Read [CONTRIBUTING.md](CONTRIBUTING.md) for how to add actions, improve existing ones, and what "correct behavior" means for this skill.
+
+See [TESTING.md](TESTING.md) for the behavior verification checklist — run it before submitting a PR.
+
+See [CHANGELOG.md](CHANGELOG.md) for the version history.
+
+Please follow the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE)
 
 ## Author
 
-[Favio Vázquez](https://github.com/favio-vazquez) — built as part of [The Road to Reality](https://github.com/favio-vazquez/roadtoreality), Episode 2.
+[Favio Vázquez](https://github.com/FavioVazquez) — built as part of [The Road to Reality](https://github.com/favio-vazquez/roadtoreality), Episode 2.
