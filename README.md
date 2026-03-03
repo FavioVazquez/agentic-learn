@@ -70,6 +70,8 @@ Place the `agentic-learning/` directory anywhere your agent scans for skills. Th
 
 ## Usage examples
 
+> **Full walkthroughs with realistic conversations for every action:** [EXAMPLES.md](EXAMPLES.md)
+
 ```
 @agentic-learning learn async/await in Python
 
