@@ -425,12 +425,117 @@ Agent: ✓ Appended to docs/decisions/2026-03-02-decisions.md
 
 ---
 
-## Chaining actions in a session
+## `explain` — Project comprehension log
 
-These actions work well together. A typical deep-work session might look like:
+**Scenario:** You've just cloned an unfamiliar repo and want to understand what it is before touching anything.
 
 ```
-# Start with a design
+You: @agentic-learning explain
+```
+
+```
+Agent: Reading the project...
+
+       [scans README.md, SKILL.md, references/, EXAMPLES.md, install.sh]
+
+       ── agentic-learning — Comprehension log ─────────────────────────
+       Generated: 2026-03-03 00:09
+
+       ### What this project does
+       An agent skill that turns an AI coding assistant into a learning
+       partner. Instead of handing over answers, it guides users through
+       eight structured actions grounded in neuroscience (retrieval,
+       spacing, generation, reflection) and philosophy (Kierkegaard's
+       Either/Or). Installable in Windsurf, Cursor, Copilot, and any
+       AgentSkills-compatible agent.
+
+       ### Architecture overview
+       Single SKILL.md file drives all behavior — the agent reads it as
+       instructions. Three reference files provide deeper context:
+       learning-science.md (the research), struggle-ladder.md (hint system),
+       either-or-format.md (decision journal format). No code to run — pure
+       markdown instructions for the agent.
+
+       ### Entry points
+       - Install: `npx skills add FavioVazquez/agentic-learn`
+       - Use: `@agentic-learning <action>` in any compatible agent
+       - All 8 actions are defined in SKILL.md
+
+       ### Key concepts to understand
+       1. The skill body is agent instructions, not user docs — write it
+          for the model to read and follow
+       2. `description` in frontmatter is the trigger — specificity matters
+       3. All output files go into the user's project (docs/), not the skill
+       4. The "productive struggle" principle governs all actions — the agent
+          must not short-circuit the user's cognitive effort
+       5. either-or and brainstorm produce persistent artifacts (markdown files)
+
+       ### Non-obvious things
+       - The skill is installed as a symlink by `npx skills` — edits to the
+         source repo are reflected immediately without reinstalling
+       - `explain-first` and `explain` look similar but are opposite directions:
+         explain-first = user explains TO the agent; explain = agent explains
+         TO the user
+       - version is "1.1" in SKILL.md — bump this on any behavioral change
+
+       ### Open questions
+       - No test suite exists yet for verifying agent compliance with the
+         skill's constraints (the "wait before answering" rule especially)
+       - CONTRIBUTING.md not yet written
+
+       ### Suggested learning path
+       1. Read SKILL.md top to bottom — understand each action's constraints
+       2. Run through EXAMPLES.md — see what correct behavior looks like
+       3. Install and test each action once before contributing changes
+       4. Read references/ to understand the science behind the design choices
+
+       ✓ Written to docs/project-knowledge.md
+
+       Is there a specific area you want to go deeper on, or something
+       that seems wrong in my reading?
+```
+
+---
+
+**Scenario:** You've been working on the project for a while and run `explain` again — it appends rather than overwrites.
+
+```
+You: @agentic-learning explain references/
+```
+
+```
+Agent: Reading the references/ directory specifically...
+
+       ── agentic-learning — Comprehension log ─────────────────────────
+       Generated: 2026-03-10 14:22 (focused: references/)
+
+       ### What this area does
+       Three supporting documents the agent reads during skill execution.
+       They are NOT user-facing docs — they are instructions and context
+       for the agent to draw on when running specific actions.
+
+       ### Non-obvious things
+       - learning-science.md is cited in the SKILL.md body — if you update
+         the research section, the agent will use it automatically
+       - struggle-ladder.md defines 4 hint levels plus extended hints —
+         the "harder" mode collapses levels upward
+       - either-or-format.md contains 3 full worked examples, which is the
+         most valuable part for calibrating agent behavior
+
+       ✓ Appended to docs/project-knowledge.md
+```
+
+---
+
+## Chaining actions in a session
+
+These actions work well together. A typical onboarding + deep-work session might look like:
+
+```
+# Start by understanding the project (especially useful on a new repo)
+@agentic-learning explain
+
+# Design before building
 @agentic-learning brainstorm caching strategy for the API
 
 # Record the key decision

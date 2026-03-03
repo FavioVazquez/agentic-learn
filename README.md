@@ -20,6 +20,7 @@ It also includes tools for collaborative design (**brainstorm**), decision journ
 | `explain-first` | You narrate the current code in your own words before the agent says anything |
 | `struggle <task>` | 3-hint ladder mode; agent reveals only when you ask or exhaust the hints |
 | `either-or <decision>` | Decision journal inspired by Kierkegaard; appends to `docs/decisions/` |
+| `explain` | Reads the whole project and writes a comprehension log to `docs/project-knowledge.md` |
 
 ---
 
@@ -88,6 +89,8 @@ Place the `agentic-learning/` directory anywhere your agent scans for skills. Th
 @agentic-learning explain-first
 
 @agentic-learning space
+
+@agentic-learning explain
 ```
 
 ---
@@ -99,10 +102,11 @@ When you use this skill, it may create or append to:
 ```
 docs/
 ├── brainstorm/
-│   └── YYYY-MM-DD-<topic>.md       # brainstorm session design docs
+│   └── YYYY-MM-DD-<topic>.md         # brainstorm session design docs
 ├── decisions/
-│   └── YYYY-MM-DD-decisions.md     # either-or decision journal
-└── revisit.md                      # spacing reminders
+│   └── YYYY-MM-DD-decisions.md       # either-or decision journal
+├── project-knowledge.md              # explain: growing comprehension log
+└── revisit.md                        # spacing reminders
 ```
 
 These files are yours — commit them, share them, or use them as the raw material for documentation and retrospectives.

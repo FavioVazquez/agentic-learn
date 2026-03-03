@@ -7,12 +7,12 @@ description: >
   practice productive struggle on a hard problem, journal a decision with its
   alternatives and consequences, or schedule concepts to revisit later.
   Invoke with @agentic-learning followed by one of: learn, quiz, reflect, space,
-  brainstorm, explain-first, struggle, or either-or.
+  brainstorm, explain-first, struggle, either-or, or explain.
 license: MIT
 compatibility: Works with Windsurf Cascade and any AgentSkills-compatible agent.
 metadata:
   author: favio-vazquez
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Agentic Learning
@@ -237,6 +237,60 @@ Guide the user through a task using a hint ladder. Default is 3 hints before rev
 4. Confirm the entry was saved. Optionally ask: "Do you want to reflect on what this choice reveals about your priorities or constraints?"
 
 See [references/either-or-format.md](references/either-or-format.md) for the full template and examples.
+
+---
+
+### `explain` — Project comprehension and knowledge log
+
+**Trigger:** `@agentic-learning explain` (optionally: `@agentic-learning explain <specific area>`)
+
+**What it does:** Reads the project — code, docs, examples, tests, config — and produces a structured summary the user and agent can reference. Logs the results to a file so understanding accumulates over time and is never lost between sessions.
+
+**What to do:**
+1. **Discover the project structure** — list the top-level directories and files. Identify the main language(s), entry points, config files, docs, and test directories.
+2. **Read in layers** — prioritize in this order:
+   - `README.md` / `CONTRIBUTING.md` / `CHANGELOG.md` — intent and context
+   - Entry points (`main.py`, `index.ts`, `app.py`, `src/`, etc.) — what the project actually does
+   - Key modules or components (largest or most-referenced files)
+   - Tests — reveal expected behavior
+   - Examples / docs / notebooks — reveal how it's meant to be used
+3. **Produce a structured summary** with these sections:
+
+```markdown
+## [Project name] — Comprehension log
+_Generated: <YYYY-MM-DD HH:MM>_
+
+### What this project does
+<2-4 sentence plain-language description. No jargon. What problem does it solve?>
+
+### Architecture overview
+<Key components, how they connect, data flow if relevant>
+
+### Entry points
+<How to run it, main files, CLI commands>
+
+### Key concepts to understand
+<3-7 concepts that are central to working with this codebase>
+
+### Non-obvious things
+<Anything surprising, unconventional, or easy to misunderstand>
+
+### Open questions
+<Things the agent couldn't determine from reading — worth asking the user or investigating>
+
+### Suggested learning path
+<If a new contributor wanted to understand this in depth, what order would you recommend?>
+```
+
+4. **Write to `docs/project-knowledge.md`** — create the file if it doesn't exist; if it does, append a new dated entry rather than overwriting. This makes the file a growing knowledge log.
+5. **Tell the user** the file was written and surface the 2-3 most important things to know about the project right now.
+6. **Offer a follow-up** — after presenting the summary, ask: *"Is there a specific area you want to go deeper on, or something that seems wrong in my reading?"*
+
+**Key constraints:**
+- Do NOT just describe the file tree. Read the actual code.
+- Do NOT produce a summary longer than the user can absorb in 2 minutes — be ruthlessly selective.
+- The "Non-obvious things" section is the most valuable — prioritize it.
+- If the project is large, explain which parts you focused on and why.
 
 ---
 
